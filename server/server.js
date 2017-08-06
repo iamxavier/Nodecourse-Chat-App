@@ -28,15 +28,16 @@ io.on('connection', (socket)=>{
 
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'))
 
-    socket.on('createMessage', (message)=>{
-       //  console.log('Incoming message', message);
-        // io.emit('newMessage', {
+    socket.on('createMessage', (message, callback)=>{
+        console.log('Incoming message', message);
+        io.emit('newMessage', generateMessage(message.from, message.text)); 
+        callback('This is from the server');
         //     from: message.from,
         //     text: message.text,
         //     createdAt: new Date().getTime()    
         // })
 
-        socket.broadcast.emit('newMessage', generateMessage(message.from, message.text));
+        // socket.broadcast.emit('newMessage', generateMessage(message.from, message.text));
     })
 
     // socket.emit('newMessage', {
