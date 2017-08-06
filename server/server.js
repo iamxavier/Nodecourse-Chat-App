@@ -24,13 +24,18 @@ io.on('connection', (socket)=>{
 
     socket.on('createMessage', (message)=>{
         console.log('Incoming message', message);
+        io.emit('newMessage', {
+            from: message.from,
+            text: message.text,
+            createdAt: new Date().getTime()    
+        })
     })
 
-    socket.emit('newMessage', {
-        from: 'Xavier',
-        text: "Course is going good",
-        createdAt: new Date().getTime()
-    })
+    // socket.emit('newMessage', {
+    //     from: 'Xavier',
+    //     text: "Course is going good",
+    //     createdAt: new Date().getTime()
+    // })
     socket.on('disconnect', ()=>{
     console.log('Disconnected successfully')
 })
